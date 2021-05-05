@@ -4,7 +4,7 @@
  using namespace std;
 Array::Array()
 {
-  empty =5000;
+  empty =10000;
   data = new string[empty];
   size = -1 ;
 }
@@ -12,33 +12,65 @@ Array::~Array()
 {
   //dtr
 }
+// Inserts given word  to the array
 void Array::insert(string word)
 {
-  if (size < empty)
+  if (size <= empty)
   {
     size++;
     data[size] = word;
-    cout<<data[size]<<endl;
   }
-  else
+  else // We increase the size of the array if it is full!
   {
-    empty+=5000;
+    cout<<"increased"<<endl;
+    empty+=10000;
     string *new_data = new string[empty];
-    new_data = data; 
+    for(int i=0;i<=size;i++) // Copying the words to the new array
+      new_data[i] = data[i]; 
     delete [] data;
-    data = new_data;
+    data = new_data; // We assign the data pointer to our saved data.
     size++;
     data[size] = word;
-    cout<<data[size]<<endl;
   }
 } 
 
-bool Array::search(string word)
+int Array::search(string word)
 {
+  int index= -1;
   for(int i=0;i<=size;i++)
   {
-    if(word == data[size])
-      return true;
+    if(data[i].compare(word)==0)
+    {
+      index = i;
+      return index;
+    }
+  } 
+  return index;
+}
+int Array::count(string word)
+{
+  int count=0;
+  for(int i=0;i<=size;i++)
+  {
+    if(data[i].compare(word)==0)
+    {
+        count = count+1;
+    }
+  } 
+  return count;
+}
+
+bool Array::del(string word)
+{
+  int index;
+  index = search(word);
+  if(index == -1)
+    return false;
+  else
+  {
+    data[index] = data[size];
+    data[size]="";
+    size--;
+    return true;
   }
-  return false;
 }

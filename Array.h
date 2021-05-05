@@ -11,6 +11,7 @@ class Array{
     ~Array();
 
     void insert(std::string);
-    void del(char*);
-    bool search(std::string);
+    bool del(std::string);
+    int search(std::string);
+    int count(std::string);
 };
