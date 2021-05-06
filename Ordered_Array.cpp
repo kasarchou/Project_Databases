@@ -62,7 +62,6 @@ void Ordered_Array::order()
       if (data[j]<data[j-1])
         swap(j,j-1);
   }
-  cout<<data[size];
 }
 
 // Algorithm for the recursive binary search of the ordered array.
@@ -97,7 +96,7 @@ int Ordered_Array::binarySearch( int first, int last,string word)
 // We do a binary search on our ordered array to find the requested string element.
 int Ordered_Array::search(string word)
 {
-  return binarySearch(0, si ze, word);
+  return binarySearch(0,size, word);
 }
 
 // We search for the  element and count left and right from it for all the words matching.
@@ -119,11 +118,11 @@ int Ordered_Array::count(string word)
 bool Ordered_Array::del(string word)
 {
   int index = search(word); // Gets the position of the word in the array.
-  if (index==-1)
+  if (index!=-1)
   {
     // Covers the empty spot of the array and reduces size.
     for(int i =index;i<size;i++)
-      data[i] = data[i+i];
+      data[i] = data[i+1];
     data[size]="";
     size--;
     return true;

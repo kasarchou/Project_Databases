@@ -4,14 +4,17 @@
 #include <cstring>
 #include "Array.h"
 #include "Ordered_Array.h"
+#include "B_tree.h"
 
 //............................................MAIN................................................
 int main() {
   using namespace std;
   string filename,word;
   int res;
+  // Declare  our databases
   Array a;
   Ordered_Array b;
+  B_tree c;
   cout << "Give me a file name (.txt): ";
   cin>>filename;
   ifstream file;
@@ -30,8 +33,12 @@ int main() {
       }
       a.insert(word);
       b.insert(word);
-      
+      c.insert(word);      
     }
+    c.del("Vinci");
+    cout<< c.inorder("Vinci")<<endl;
+    cout<<c.postorder("Vinci")<<endl;
+    cout<< c.preorder("Vinci") <<endl;
     b.order();
   }
   else // Prints error message in case  of failure while openning file!
