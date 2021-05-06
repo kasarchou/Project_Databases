@@ -53,7 +53,7 @@ int Array::count(string word)
   for(int i=0;i<=size;i++)
   {
     if(data[i].compare(word)==0)
-    {
+    { 
         count = count+1;
     }
   } 

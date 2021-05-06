@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstring>
 #include "Array.h"
+#include "Ordered_Array.h"
 
 //............................................MAIN................................................
 int main() {
@@ -10,6 +11,7 @@ int main() {
   string filename,word;
   int res;
   Array a;
+  Ordered_Array b;
   cout << "Give me a file name (.txt): ";
   cin>>filename;
   ifstream file;
@@ -27,11 +29,10 @@ int main() {
           word.erase(i--, 1);
       }
       a.insert(word);
+      b.insert(word);
       
     }
-    a.del("Vinci");
-    res = a.count("Vinci");
-    cout<<"Word found: "<< res <<" times!"<<endl;
+    b.order();
   }
   else // Prints error message in case  of failure while openning file!
   {
