@@ -5,6 +5,7 @@
 #include "Array.h"
 #include "Ordered_Array.h"
 #include "B_tree.h"
+#include "AVL_tree.h"
 
 //............................................MAIN................................................
 int main() {
@@ -15,6 +16,7 @@ int main() {
   Array a;
   Ordered_Array b;
   B_tree c;
+  AVL_tree d;
   cout << "Give me a file name (.txt): ";
   cin>>filename;
   ifstream file;
@@ -33,9 +35,11 @@ int main() {
       }
       a.insert(word);
       b.insert(word);
-      c.insert(word);      
+      c.insert(word);   
+      d.insert(word);
     }
-    c.del("Vinci");
+    //c.del("Vinci");
+    d.preOrder();
     cout<< c.inorder("Vinci")<<endl;
     cout<<c.postorder("Vinci")<<endl;
     cout<< c.preorder("Vinci") <<endl;

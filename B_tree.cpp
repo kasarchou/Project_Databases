@@ -148,7 +148,7 @@ int B_tree::preorder(string word)
 // Function that returns true if given string exists on the tree or else false
  node *B_tree::search(string word, node *leaf)
 {
-  if(leaf!=NULL)
+  if(leaf!=nullptr)
   {
     if(word==leaf->data)
       return leaf; 
@@ -157,7 +157,8 @@ int B_tree::preorder(string word)
     else
       return search(word, leaf->right);
   }
-  else return leaf;
+  else 
+    return leaf;
 }
 // Calls recursive fuction search(string,node*)
 node *B_tree::search(string word)
