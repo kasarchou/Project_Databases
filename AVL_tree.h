@@ -22,6 +22,8 @@ class AVL_tree
     int getBalance(leaf*);
     void preOrder();
     void preOrder(leaf*);
+    leaf *search(leaf*,std::string);
+    int getCount(std::string);
     leaf *leftRotate(leaf*);
     leaf *rightRotate(leaf*);
     leaf* newNode(std::string);

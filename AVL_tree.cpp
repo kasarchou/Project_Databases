@@ -20,6 +20,7 @@ leaf* AVL_tree::newNode(string word)
     newnode->right = NULL;
     newnode->height = 1; // new node is initially
                       // added at leaf
+    newnode->count++;
     return(newnode);
 }
  
@@ -91,17 +92,17 @@ void AVL_tree::insert(string word)
 {
   leaf *b;
   b = insert(root, word);
+  size++;
+  if(size==1)
+  {
+    root=b;
+  }
 }
 // Recursive function to insert a key
 // in the subtree rooted with node and
 // returns the new root of the subtree.
 leaf* AVL_tree::insert(leaf* newnode, string word)
 {
-  if(root == nullptr)
-  {
-    root = newNode(word);
-  }
-
     /* 1. Perform the normal BST insertion */
     if (newnode == nullptr)
         return(newNode(word));
@@ -111,8 +112,10 @@ leaf* AVL_tree::insert(leaf* newnode, string word)
     else if (word > newnode->data)
         newnode->right = insert(newnode->right, word);
     else // Equal keys are not allowed in BST
+    {
+        newnode->count++;
         return newnode;
- 
+    }
     /* 2. Update height of this ancestor node */
     newnode->height = 1 + max(height(newnode->left),
                         height(newnode->right));
@@ -124,7 +127,7 @@ leaf* AVL_tree::insert(leaf* newnode, string word)
  
     // If this node becomes unbalanced, then
     // there are 4 cases
- 
+
     // Left Left Case
     if (balance > 1 && word < newnode->left->data)
         return rightRotate(newnode);
@@ -150,7 +153,29 @@ leaf* AVL_tree::insert(leaf* newnode, string word)
     /* return the (unchanged) node pointer */
     return newnode;
 }
- 
+int AVL_tree::getCount(string word)
+{
+  leaf *res;
+  res = search(root,word);
+  if( res == nullptr)
+    return 0;
+  cout<<res->data;
+  return res->count;
+}
+leaf *AVL_tree::search(leaf *first,string word)
+{
+  if (first != nullptr)
+  {
+    cout<<first->data<<" ";
+    if(first->data == word)
+    {
+      return first;
+    }
+    return search(first->left,word);
+    return search(first->right,word);
+  }
+    return nullptr;
+} 
 // A utility function to print preorder
 // traversal of the tree.
 // The function also prints height
