@@ -20,7 +20,7 @@ leaf* AVL_tree::newNode(string word)
     newnode->right = NULL;
     newnode->height = 1; // new node is initially
                       // added at leaf
-    newnode->count++;
+    newnode->count = 1;
     return(newnode);
 }
  
@@ -113,7 +113,7 @@ leaf* AVL_tree::insert(leaf* newnode, string word)
         newnode->right = insert(newnode->right, word);
     else // Equal keys are not allowed in BST
     {
-        newnode->count++;
+        ++newnode->count;
         return newnode;
     }
     /* 2. Update height of this ancestor node */
@@ -159,20 +159,24 @@ int AVL_tree::getCount(string word)
   res = search(root,word);
   if( res == nullptr)
     return 0;
-  cout<<res->data;
   return res->count;
 }
 leaf *AVL_tree::search(leaf *first,string word)
 {
-  if (first != nullptr)
+  leaf *res;
+
+  if(first!=nullptr)
   {
-    cout<<first->data<<" ";
-    if(first->data == word)
+    if(first->data.compare( word)==0)
     {
       return first;
     }
-    return search(first->left,word);
-    return search(first->right,word);
+     res = search(first->left,word);
+     if(res!=nullptr)
+      return res;
+     res = search(first->right,word);
+     if (res!= nullptr)
+      return res;
   }
     return nullptr;
 } 

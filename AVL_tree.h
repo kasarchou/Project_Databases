@@ -7,7 +7,7 @@ struct leaf
   int height;
   leaf *left;
   leaf *right;
-  int count;
+  int count = 0;
 };
 
 class AVL_tree

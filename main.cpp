@@ -40,10 +40,10 @@ int main() {
     }
     //c.del("Vinci");
     d.preOrder();
-    cout<<d.getCount("Da")<<endl;
-    cout<< c.inorder("The")<<endl;
-    cout<<c.postorder("The")<<endl;
-    cout<< c.preorder("Da") <<endl;
+    cout<<d.getCount("Vinci")<<endl;
+    cout<< a.count("series")<<endl;
+    cout<<c.postorder("series")<<endl;
+    cout<< c.preorder("Complete") <<endl;
     b.order();
   }
   else // Prints error message in case  of failure while openning file!
