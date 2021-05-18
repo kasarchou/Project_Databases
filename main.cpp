@@ -1,6 +1,7 @@
 // Libraries we used
 #include <iostream>
 #include <chrono>
+#include <iomanip>
 #include <time.h>
 #include <fstream>
 #include <cstring>
@@ -50,57 +51,56 @@ int main() {
       int random = rand() % a.getSize();
       search_vals[i] = a.getData(i);
     }
-    auto start1 = chrono::high_resolution_clock::now();
-     ios_base::sync_with_stdio(false);
     b.order();
+    auto start1 = chrono::steady_clock::now();
     for(int i =0;i<1000;i++)
     {
       array_count[i] = a.count(search_vals[i]);
     }
-    auto end1 = chrono::high_resolution_clock::now();
-    double time_taken_a = 
-      chrono::duration_cast<chrono::nanoseconds>(end1 -  start1).count();
-    auto start = chrono::high_resolution_clock::now();
-    ios_base::sync_with_stdio(false);
+    auto end1 = chrono::steady_clock::now();
+      chrono::duration<double>  elapse_seconds_a = end1 -  start1;
+    auto start = chrono::steady_clock::now();
     for(int i =0;i<1000;i++)
     {
       ord_count[i]= b.count(search_vals[i]);
     }
-    auto end = chrono::high_resolution_clock::now();
-    double time_taken_b = 
-      chrono::duration_cast<chrono::nanoseconds>(end -  start).count();
-    start = chrono::high_resolution_clock::now();
-    ios_base::sync_with_stdio(false);
+    auto end = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_b = end- start;
+    start = chrono::steady_clock::now();
     for(int i =0;i<1000;i++)
     {
       bin_tree_count[i]= c.postorder(search_vals[i]);
     }
-    end = chrono::high_resolution_clock::now();
-    double time_taken_c = 
-      chrono::duration_cast<chrono::nanoseconds>(end -  start).count();
-    start = chrono::high_resolution_clock::now();
-    ios_base::sync_with_stdio(false);
+    end = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_c = end - start;
+    start = chrono::steady_clock::now();
     for(int i =0;i<1000;i++)
     {
       avl_count[i]= d.getCount(search_vals[i]);
     }
-    end = chrono::high_resolution_clock::now();
-    double time_taken_d = 
-      chrono::duration_cast<chrono::nanoseconds>(end -  start).count();
-    start = chrono::high_resolution_clock::now();
-    ios_base::sync_with_stdio(false);
+    end = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_d = end -start;
+    start = chrono::steady_clock::now();
     for(int i =0;i<1000;i++)
     {
       hash_count[i]= e.count(search_vals[i]);
     }
-    end = chrono::high_resolution_clock::now();
-    double time_taken_e = 
-      chrono::duration_cast<chrono::nanoseconds>(end -  start).count();
+    end = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_e = end - start;
     cout<<"Word   Array    Ordered_Array    Binary Tree    AVL Tree    Hashtable"<<endl<<endl;
     for(int i=0;i<1000;i++)
     {
-      cout<<search_vals[i]<<": \t"<<array_count[i]<<" \t "<<ord_count[i]<<" \t "<<bin_tree_count[i]<<" \t "<<avl_count[i]<<" \t  "<<hash_count[i]<<endl;
+      cout<<i+1<<")  "<<search_vals[i]<<": \t"<<array_count[i]<<" \t "<<ord_count[i]<<" \t "<<bin_tree_count[i]<<" \t "<<avl_count[i]<<" \t  "<<hash_count[i]<<endl;
     }
+    cout<<endl<<endl;
+    cout<<"Times taken for count operations: "<<endl;
+    cout<<"Array: "<<elapse_seconds_a.count()<<" seconds"<<endl;
+    cout<<"Ordered Array: "<<elapsed_b.count()<<" seconds"<<endl;
+    cout<<"Binary Tree: "<<elapsed_c.count()<<" seconds"<<endl;
+    cout<<"Avl Tree: "<<elapsed_d.count()<<"seconds"<<endl;
+    cout<<"Hashtable: "<<elapsed_e.count()<<" seconds"<<endl;
+
+
   }
   else // Prints error message in case  of failure while openning file!
   {
