@@ -1,11 +1,11 @@
 #include <iostream>
 
 struct node
-    {
-      std::string data;
-      node *left;
-      node *right;
-    };
+{
+  std::string data;
+  node *left;   
+  node *right;
+};
     
 class B_tree{
   private:

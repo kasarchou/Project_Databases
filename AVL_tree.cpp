@@ -198,3 +198,121 @@ void AVL_tree::preOrder()
 {
   preOrder(root);
 }
+
+leaf *AVL_tree::minVal(leaf* node) 
+{ 
+    leaf* current = node; 
+  
+    /* loop down to find the leftmost leaf */
+    while (current->left != nullptr) 
+        current = current->left; 
+  
+    return current; 
+} 
+  
+// Recursive function to delete a node 
+// with given key from subtree with 
+// given root. It returns root of the 
+// modified subtree. 
+leaf* AVL_tree::del(leaf* node, string word) 
+{ 
+      
+    // STEP 1: PERFORM STANDARD BST DELETE 
+    if (node == nullptr) 
+        return node; 
+  
+    // If the key to be deleted is smaller 
+    // than the root's key, then it lies
+    // in left subtree 
+    if ( word < node->data ) 
+        node->left = del(node->left, word); 
+  
+    // If the key to be deleted is greater 
+    // than the root's key, then it lies 
+    // in right subtree 
+    else if( word > node->data ) 
+        node->right = del(node->right, word); 
+  
+    // if key is same as root's key, then 
+    // This is the node to be deleted 
+    else
+    { 
+        // node with only one child or no child 
+        if( (node->left == nullptr) ||
+            (node->right == nullptr) ) 
+        { 
+            leaf *temp = node->left ? 
+                         node->left : 
+                         node->right; 
+  
+            // No child case 
+            if (temp == nullptr) 
+            { 
+                temp = node; 
+                node = nullptr; 
+            } 
+            else // One child case 
+            *node = *temp; // Copy the contents of 
+                           // the non-empty child 
+            free(temp); 
+        } 
+        else
+        { 
+            // node with two children: Get the inorder 
+            // successor (smallest in the right subtree) 
+            leaf* temp = minVal(node->right); 
+  
+            // Copy the inorder successor's 
+            // data to this node 
+            node->data = temp->data; 
+  
+            // Delete the inorder successor 
+            node->right = del(node->right, temp->data); 
+        } 
+    } 
+  
+    // If the tree had only one node
+    // then return 
+    if (node == nullptr) 
+    return node; 
+  
+    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE 
+    node->height = 1 + max(height(node->left), 
+                           height(node->right)); 
+  
+    // STEP 3: GET THE BALANCE FACTOR OF 
+    // THIS NODE (to check whether this 
+    // node became unbalanced) 
+    int balance = getBalance(node); 
+  
+    // If this node becomes unbalanced, 
+    // then there are 4 cases 
+  
+    // Left Left Case 
+    if (balance > 1 && 
+        getBalance(node->left) >= 0) 
+        return rightRotate(node); 
+  
+    // Left Right Case 
+    if (balance > 1 && 
+        getBalance(node->left) < 0) 
+    { 
+        node->left = leftRotate(node->left); 
+        return rightRotate(node); 
+    } 
+  
+    // Right Right Case 
+    if (balance < -1 && 
+        getBalance(node->right) <= 0) 
+        return leftRotate(node); 
+  
+    // Right Left Case 
+    if (balance < -1 && 
+        getBalance(node->right) > 0) 
+    { 
+        node->right = rightRotate(node->right); 
+        return leftRotate(node); 
+    } 
+  
+    return node; 
+} 

@@ -10,6 +10,8 @@ class Array{
     Array();
     ~Array();
 
+    int getSize();
+    std::string getData(int i);
     void insert(std::string);
     bool del(std::string);
     int search(std::string);

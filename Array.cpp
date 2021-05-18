@@ -12,6 +12,16 @@ Array::~Array()
 {
   //dtr
 }
+
+int Array::getSize()
+{
+  return size + 1;
+}
+
+string Array::getData(int i )
+{
+  return data[i];
+}
 // Inserts given word  to the array
 void Array::insert(string word)
 {
